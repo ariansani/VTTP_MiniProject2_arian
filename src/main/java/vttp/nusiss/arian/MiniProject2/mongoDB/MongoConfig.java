@@ -25,8 +25,10 @@ public class MongoConfig {
     
     @Value("${mongo.url}")
     private String connectionStringMongo;
+
     @Value("${mongo.connection.user}")
     private String connectionUser;
+
     @Value("${mongo.connection.password}")
     private String connectionPassword;
     
@@ -36,7 +38,7 @@ public class MongoConfig {
        
 
         ConnectionString connectionString = new ConnectionString(
-            "mongodb+srv://%s:%s@miniproject2.avyuno4.mongodb.net/?retryWrites=true&w=majority".formatted(connectionUser,connectionPassword));
+            connectionStringMongo);
 
     
         MongoClientSettings settings = MongoClientSettings.builder()
