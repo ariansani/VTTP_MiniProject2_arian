@@ -1,0 +1,35 @@
+name: deploy heroku, publish release
+on: 
+  release:
+    types: [published]
+jobs:
+  deploy-heroku:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: akhileshns/heroku-deploy@v3.12.12 
+        with:
+          heroku_api_key: ${{ secrets.heroku_api_key }}
+          heroku_app_name: vttp-miniproject2-arian
+          heroku_email: ${{ secrets.heroku_email }}
+          branch: ${{ github.ref_name }}
+        env:
+          HD_SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          HD_SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+          HD_SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          HD_ARIAN_APP_JWTCOOKIENAME: ${{ secrets.ARIAN_APP_JWTCOOKIENAME }}
+          HD_ARIAN_APP_JWTSECRET: ${{ secrets.ARIAN_APP_JWTSECRET }}
+          HD_ARIAN_APP_JWTEXPIRATIONMS: ${{ secrets.ARIAN_APP_JWTEXPIRATIONMS }}
+          HD_SPRING_MAIL_HOST: ${{ secrets.SPRING_MAIL_HOST }}
+          HD_SPRING_MAIL_PORT: ${{ secrets.SPRING_MAIL_PORT }}
+          HD_SPRING_MAIL_USERNAME: ${{ secrets.SPRING_MAIL_USERNAME }}
+          HD_SPRING_MAIL_SENDER: ${{ secrets.SPRING_MAIL_SENDER }}
+          HD_SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD }}
+          HD_SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: ${{ secrets.SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH }}
+          HD_SPRING_MAIL_PROPERTIES_MAIL_STARTTLS_ENABLE: ${{ secrets.SPRING_MAIL_PROPERTIES_MAIL_STARTTLS_ENABLE }}
+          HD_SPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_TRUST: ${{ secrets.SPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_TRUST }}
+          HD_SPRING_MAIL_PROPERTIES_MAIL_TRANSPORT_PROTOCOL: ${{ secrets.SPRING_MAIL_PROPERTIES_MAIL_TRANSPORT_PROTOCOL }}
+          HD_SPRING_MAIL_FROM_EMAIL: ${{ secrets.SPRING_MAIL_FROM_EMAIL }}
+          HD_MONGO_URL: ${{ secrets.MONGO_URL }}
+          HD_MONGO_CONNECTION_USER: ${{ secrets.MONGO_CONNECTION_USER }}
+          HD_MONGO_CONNECTION_PASSWORD: ${{ secrets.MONGO_CONNECTION_PASSWORD }}
